@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import {v4 as uuidv4} from 'uuid'
 import MoneyDetails from '../MoneyDetails'
-
+import TransactionItem from '../TransactionItem'
 import './index.css'
 
 const transactionTypeOptions = [
@@ -28,6 +28,33 @@ class MoneyManager extends Component {
     type: '',
     income: 0,
     expense: 0,
+  }
+
+  onClickDelete = id => {
+    const {transactionsList} = this.state
+    const filteredList = transactionsList.filter(each => each.id === id)
+    const {income, expense} = filteredList
+    if (income === '') {
+      this.setState(prevState => ({
+        transactionsList: prevState.transactionsList.filter(
+          eachTrans => eachTrans.id !== id,
+        ),
+        title: '',
+        amount: '',
+        income: prevState.income + expense,
+        expense: prevState.expense,
+      }))
+    } else {
+      this.setState(prevState => ({
+        transactionsList: prevState.transactionsList.filter(
+          eachTrans => eachTrans.id !== id,
+        ),
+        title: '',
+        amount: '',
+        income: prevState.income - income,
+        expense: prevState.expense,
+      }))
+    }
   }
 
   onChangeTitleInput = event => {
@@ -140,14 +167,23 @@ class MoneyManager extends Component {
               Add
             </button>
           </form>
-          <div className="history-container">
-            <p>History</p>
+          <ul className="history-container">
+            <h1>History</h1>
             <div className="header-container">
               <p>Title</p>
               <p>Amount</p>
               <p>Type</p>
             </div>
-          </div>
+            <div>
+              {transactionsList.map(eachTrans => (
+                <TransactionItem
+                  trans={eachTrans}
+                  key={eachTrans.id}
+                  onClickDelete={this.onClickDelete}
+                />
+              ))}
+            </div>
+          </ul>
         </div>
       </div>
     )
