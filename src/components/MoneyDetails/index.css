@@ -1,0 +1,60 @@
+.list-item {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.mid1-container {
+  width: 250px;
+  border: 2px solid green;
+  background-color: #ecfccb;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.mid2-container {
+  width: 250px;
+  border: 2px solid #0b69ff;
+  background-color: #cffafe;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.mid3-container {
+  width: 250px;
+  border: 2px solid #7c3aed;
+  background-color: #ede9fe;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.balance-img {
+  width: 60px;
+  height: 60px;
+}
+.income-img {
+}
+@media screen and (max-width: 767px) {
+  .moneydetails-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+@media screen and (min-width: 768px) {
+  .moneydetails-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
