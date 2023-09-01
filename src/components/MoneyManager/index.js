@@ -33,7 +33,10 @@ class MoneyManager extends Component {
   onClickDelete = id => {
     const {transactionsList} = this.state
     const filteredList = transactionsList.filter(each => each.id === id)
-    const {income, expense} = filteredList
+    const {income, expense} = filteredList[0]
+    console.log('Filterd list', filteredList)
+    console.log('income=', income)
+    console.log('expense', expense)
     if (income === '') {
       this.setState(prevState => ({
         transactionsList: prevState.transactionsList.filter(
@@ -41,8 +44,8 @@ class MoneyManager extends Component {
         ),
         title: '',
         amount: '',
-        income: prevState.income + expense,
-        expense: prevState.expense,
+        income: parseInt(prevState.income),
+        expense: parseInt(prevState.expense) - parseInt(expense),
       }))
     } else {
       this.setState(prevState => ({
@@ -51,7 +54,7 @@ class MoneyManager extends Component {
         ),
         title: '',
         amount: '',
-        income: prevState.income - income,
+        income: parseInt(prevState.income) - parseInt(income),
         expense: prevState.expense,
       }))
     }
@@ -115,7 +118,6 @@ class MoneyManager extends Component {
 
   render() {
     const {income, expense, title, amount, transactionsList} = this.state
-    console.log('transactions list ', transactionsList)
 
     return (
       <div className="bg_container">
@@ -167,14 +169,14 @@ class MoneyManager extends Component {
               Add
             </button>
           </form>
-          <ul className="history-container">
+          <div className="history-container">
             <h1>History</h1>
             <div className="header-container">
               <p>Title</p>
               <p>Amount</p>
               <p>Type</p>
             </div>
-            <div>
+            <ul>
               {transactionsList.map(eachTrans => (
                 <TransactionItem
                   trans={eachTrans}
@@ -182,8 +184,8 @@ class MoneyManager extends Component {
                   onClickDelete={this.onClickDelete}
                 />
               ))}
-            </div>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     )
